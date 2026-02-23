@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever with Nives | Luxury Lifestyle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-light: #F4E4BC;
+            --gold-dark: #AA8C2C;
+            --black-primary: #0a0a0a;
+            --black-secondary: #1a1a1a;
+        }
+        
+        * {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #D4AF37, #AA8C2C);
+            border-radius: 4px;
+        }
+        
+        /* Gold Gradient Text */
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #F4E4BC 0%, #D4AF37 50%, #AA8C2C 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Gold Border Gradient */
+        .border-gold-gradient {
+            border-image: linear-gradient(135deg, #F4E4BC, #D4AF37, #AA8C2C) 1;
+        }
+        
+        /* Shimmer Effect */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            background-size: 1000px 100%;
+            animation: shimmer 3s infinite linear;
+        }
+        
+        /* Float Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        /* Fade Up */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-up {
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+        
+        /* Sparkle */
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        .sparkle {
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        /* Product Card Hover */
+        .product-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.08);
+        }
+        
+        .product-card:hover .add-to-cart-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Cart Sidebar */
+        .cart-sidebar {
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .cart-sidebar.open {
+            transform: translateX(0);
+        }
+        
+        /* Button Hover Glow */
+        .btn-gold {
+            background: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gold:hover {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        /* Input Focus */
+        .input-gold:focus {
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+        
+        /* Navigation Link Hover */
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, #D4AF37, #F4E4BC);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Grain Texture */
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        /* Loader */
+        .loader {
+            border: 3px solid rgba(212, 175, 55, 0.1);
+            border-top: 3px solid #D4AF37;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-white overflow-x-hidden selection:bg-[#D4AF37] selection:text-black">
+
+    <div class="grain"></div>
+
+    <!-- Announcement Bar -->
+    <div class="bg-[#D4AF37] text-black text-xs font-semibold py-2 text-center tracking-widest uppercase">
+        Free Shipping on Orders Over $100 • Forever with Nives
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-[#D4AF37]/20 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-full border-2 border-[#D4AF37] flex items-center justify-center group-hover:bg-[#D4AF37] transition-all duration-300">
+                        <span class="font-display text-xl font-bold text-[#D4AF37] group-hover:text-black transition-colors">N</span>
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="font-display text-2xl font-bold text-gold-gradient leading-none">Forever with Nives</h1>
+                        <p class="text-[10px] text-[#D4AF37]/60 tracking-[0.3em] uppercase">Luxury Lifestyle</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 text-sm tracking-wider">
+                    <button onclick="filterProducts('all')" class="nav-link text-white/80 hover:text-[#D4AF37] transition-colors uppercase text-xs font-medium">All</button>
+                    <button onclick="filterProducts('perfume')" class="nav-link text-white/80 hover:text-[#D4AF37] transition-colors uppercase text-xs font-medium">Perfumes</button>
+                    <button onclick="filterProducts('skincare')" class="nav-link text-white/80 hover:text-[#D4AF37] transition-colors uppercase text-xs font-medium">Skincare</button>
+                    <button onclick="filterProducts('accessories')" class="nav-link text-white/80 hover:text-[#D4AF37] transition-colors uppercase text-xs font-medium">Accessories</button>
+                    <button onclick="filterProducts('wine')" class="nav-link text-white/80 hover:text-[#D4AF37] transition-colors uppercase text-xs font-medium">Wine & Spirits</button>
+                </div>
+
+                <!-- Icons -->
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleSearch()" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all">
+                        <i class="fas fa-search text-sm"></i>
+                    </button>
+                    <button onclick="toggleCart()" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all relative">
+                        <i class="fas fa-shopping-bag text-sm"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 w-5 h-5 bg-[#D4AF37] text-black text-xs font-bold rounded-full flex items-center justify-center">0</span>
+                    </button>
+                    <button class="md:hidden w-10 h-10 rounded-full border border-white/10 flex items-center justify-center" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div id="search-bar" class="hidden border-t border-[#D4AF37]/20 bg-[#0a0a0a]/95 backdrop-blur-md">
+            <div class="max-w-3xl mx-auto px-6 py-4">
+                <div class="relative">
+                    <input type="text" id="search-input" placeholder="Search for luxury items..." 
+                           class="w-full bg-transparent border-b border-[#D4AF37]/30 py-3 text-white placeholder-white/30 outline-none focus:border-[#D4AF37] transition-colors font-display text-lg"
+                           oninput="searchProducts(this.value)">
+                    <i class="fas fa-search absolute right-0 top-3.5 text-[#D4AF37]/50"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-[#0a0a0a]/98 z-50 transform translate-x-full transition-transform duration-300 md:hidden">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-12">
+                <h1 class="font-display text-2xl font-bold text-gold-gradient">Forever with Nives</h1>
+                <button onclick="toggleMobileMenu()" class="w-10 h-10 rounded-full border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37]">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="space-y-6 text-center">
+                <button onclick="filterProducts('all'); toggleMobileMenu()" class="block w-full py-4 text-xl font-display text-white/80 hover:text-[#D4AF37] transition-colors border-b border-white/10">All Collections</button>
+                <button onclick="filterProducts('perfume'); toggleMobileMenu()" class="block w-full py-4 text-xl font-display text-white/80 hover:text-[#D4AF37] transition-colors border-b border-white/10">Perfumes</button>
+                <button onclick="filterProducts('skincare'); toggleMobileMenu()" class="block w-full py-4 text-xl font-display text-white/80 hover:text-[#D4AF37] transition-colors border-b border-white/10">Skincare</button>
+                <button onclick="filterProducts('accessories'); toggleMobileMenu()" class="block w-full py-4 text-xl font-display text-white/80 hover:text-[#D4AF37] transition-colors border-b border-white/10">Accessories</button>
+                <button onclick="filterProducts('wine'); toggleMobileMenu()" class="block w-full py-4 text-xl font-display text-white/80 hover:text-[#D4AF37] transition-colors border-b border-white/10">Wine & Spirits</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1920&q=80" alt="Luxury Background" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0a0a0a]"></div>
+            <div class="absolute inset-0 bg-[#0a0a0a]/60"></div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute top-1/4 left-10 w-32 h-32 border border-[#D4AF37]/20 rounded-full animate-float opacity-30"></div>
+        <div class="absolute bottom-1/4 right-10 w-48 h-48 border border-[#D4AF37]/10 rounded-full animate-float opacity-20" style="animation-delay: 2s;"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-up">
+            <div class="mb-6 inline-block">
+                <span class="text-[#D4AF37] text-xs tracking-[0.5em] uppercase font-semibold">Est. 2024</span>
+            </div>
+            <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                <span class="text-white">Forever</span><br>
+                <span class="text-gold-gradient italic">with Nives</span>
+            </h1>
+            <p class="text-white/60 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                Curating the finest in beauty, fragrance, and lifestyle. Where elegance meets eternity.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="scrollToProducts()" class="btn-gold px-10 py-4 rounded-full text-black font-semibold tracking-wider uppercase text-sm flex items-center gap-2 group">
+                    Shop Collection
+                    <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </button>
+                <button class="px-10 py-4 rounded-full border border-[#D4AF37]/50 text-[#D4AF37] font-semibold tracking-wider uppercase text-sm hover:bg-[#D4AF37]/10 transition-all">
+                    Our Story
+                </button>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-[#D4AF37]/30 rounded-full flex justify-center pt-2">
+                <div class="w-1 h-2 bg-[#D4AF37] rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="py-20 px-6 border-b border-[#D4AF37]/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="group cursor-pointer" onclick="filterProducts('perfume')">
+                    <div class="aspect-square rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#D4AF37]/20 p-6 flex flex-col items-center justify-center gap-4 hover:border-[#D4AF37]/50 transition-all duration-300 group-hover:transform group-hover:scale-105">
+                        <i class="fas fa-spray-can text-4xl text-[#D4AF37]/60 group-hover:text-[#D4AF37] transition-colors"></i>
+                        <span class="text-sm tracking-wider uppercase font-medium">Perfumes</span>
+                    </div>
+                </div>
+                <div class="group cursor-pointer" onclick="filterProducts('skincare')">
+                    <div class="aspect-square rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#D4AF37]/20 p-6 flex flex-col items-center justify-center gap-4 hover:border-[#D4AF37]/50 transition-all duration-300 group-hover:transform group-hover:scale-105">
+                        <i class="fas fa-pump-soap text-4xl text-[#D4AF37]/60 group-hover:text-[#D4AF37] transition-colors"></i>
+                        <span class="text-sm tracking-wider uppercase font-medium">Skincare</span>
+                    </div>
+                </div>
+                <div class="group cursor-pointer" onclick="filterProducts('accessories')">
+                    <div class="aspect-square rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#D4AF37]/20 p-6 flex flex-col items-center justify-center gap-4 hover:border-[#D4AF37]/50 transition-all duration-300 group-hover:transform group-hover:scale-105">
+                        <i class="fas fa-shopping-bag text-4xl text-[#D4AF37]/60 group-hover:text-[#D4AF37] transition-colors"></i>
+                        <span class="text-sm tracking-wider uppercase font-medium">Accessories</span>
+                    </div>
+                </div>
+                <div class="group cursor-pointer" onclick="filterProducts('wine')">
+                    <div class="aspect-square rounded-2xl bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] border border-[#D4AF37]/20 p-6 flex flex-col items-center justify-center gap-4 hover:border-[#D4AF37]/50 transition-all duration-300 group-hover:transform group-hover:scale-105">
+                        <i class="fas fa-wine-glass text-4xl text-[#D4AF37]/60 group-hover:text-[#D4AF37] transition-colors"></i>
+                        <span class="text-sm tracking-wider uppercase font-medium">Wine</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <span class="text-[#D4AF37] text-xs tracking-[0.5em] uppercase font-semibold mb-4 block">Curated Selection</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 text-white">The Collection</h2>
+                <div class="w-24 h-px bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto"></div>
+            </div>
+
+            <!-- Filter Tags -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12" id="filter-tags">
+                <button onclick="filterProducts('all')" class="filter-btn active px-6 py-2 rounded-full border border-[#D4AF37] bg-[#D4AF37] text-black text-xs font-semibold uppercase tracking-wider transition-all" data-filter="all">All</button>
+                <button onclick="filterProducts('perfume')" class="filter-btn px-6 py-2 rounded-full border border-[#D4AF37]/30 text-white/70 hover:border-[#D4AF37] hover:text-[#D4AF37] text-xs font-semibold uppercase tracking-wider transition-all" data-filter="perfume">Perfumes</button>
+                <button onclick="filterProducts('skincare')" class="filter-btn px-6 py-2 rounded-full border border-[#D4AF37]/30 text-white/70 hover:border-[#D4AF37] hover:text-[#D4AF37] text-xs font-semibold uppercase tracking-wider transition-all" data-filter="skincare">Skincare</button>
+                <button onclick="filterProducts('accessories')" class="filter-btn px-6 py-2 rounded-full border border-[#D4AF37]/30 text-white/70 hover:border-[#D4AF37] hover:text-[#D4AF37] text-xs font-semibold uppercase tracking-wider transition-all" data-filter="accessories">Accessories</button>
+                <button onclick="filterProducts('wine')" class="filter-btn px-6 py-2 rounded-full border border-[#D4AF37]/30 text-white/70 hover:border-[#D4AF37] hover:text-[#D4AF37] text-xs font-semibold uppercase tracking-wider transition-all" data-filter="wine">Wine</button>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Products injected via JS -->
+            </div>
+
+            <!-- Empty State -->
+            <
